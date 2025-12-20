@@ -28,5 +28,32 @@ go.work.sum
 .env
 
 # Editor/IDE
-# .idea/
-# .vscode/
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+
+# SSL Certificates
+nginx/ssl/
+*.pem
+*.key
+*.crt
+
+# Docker volumes
+postgres_data/
+
+# MCP Server binary
+mcp-server/mcp-server
+
+# Logs
+*.log
+logs/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Frontend
+frontend/dist/
+frontend/node_modules/
