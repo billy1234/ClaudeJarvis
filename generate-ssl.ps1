@@ -10,7 +10,7 @@ Write-Host "3) Manual - I'll provide my own certificates"
 Write-Host ""
 $choice = Read-Host "Enter your choice (1-3)"
 
-New-Item -ItemType Directory -Force -Path "nginx\ssl" | Out-Null
+New-Item -ItemType Directory -Force -Path "nginx/ssl" | Out-Null
 
 switch ($choice) {
     "1" {
@@ -30,7 +30,7 @@ switch ($choice) {
         mkcert -install
 
         # Get domain name
-        $domain = Read-Host "Enter your domain name (e.g., jarvis.local)"
+        $domain = Read-Host "Enter your domain name (e.g. jarvis.local)"
 
         # Get local IP
         Write-Host ""
@@ -41,11 +41,10 @@ switch ($choice) {
         # Generate certificate
         Write-Host ""
         Write-Host "Generating certificate for: localhost, $domain, *.$domain, $localip" -ForegroundColor Yellow
-        mkcert -key-file nginx\ssl\key.pem -cert-file nginx\ssl\cert.pem `
-            localhost $domain "*.$domain" $localip
+        mkcert -key-file nginx/ssl/key.pem -cert-file nginx/ssl/cert.pem localhost $domain "*.$domain" $localip
 
         Write-Host ""
-        Write-Host "✓ Certificate generated successfully!" -ForegroundColor Green
+        Write-Host "[OK] Certificate generated successfully!" -ForegroundColor Green
         Write-Host ""
         Write-Host "Add this to your hosts file (C:\Windows\System32\drivers\etc\hosts):"
         Write-Host "$localip $domain"
@@ -55,7 +54,7 @@ switch ($choice) {
         Write-Host ""
         Write-Host "=== Self-Signed Certificate ===" -ForegroundColor Cyan
 
-        $domain = Read-Host "Enter your domain name (e.g., jarvis.local)"
+        $domain = Read-Host "Enter your domain name (e.g. jarvis.local)"
         $localip = Read-Host "Enter your local IP address (optional, press Enter to skip)"
 
         # Build SAN
@@ -83,23 +82,19 @@ CN=${domain}
 [v3_req]
 subjectAltName = ${san}
 "@
-        $configFile = "nginx\ssl\openssl.conf"
+        $configFile = "nginx/ssl/openssl.conf"
         $configContent | Out-File -FilePath $configFile -Encoding ASCII
 
         # Generate certificate
-        openssl req -x509 -nodes -days 365 -newkey rsa:2048 `
-            -keyout nginx\ssl\key.pem `
-            -out nginx\ssl\cert.pem `
-            -config $configFile `
-            -extensions v3_req
+        openssl req -x509 -nodes -days 365 -newkey rsa:2048 -keyout nginx/ssl/key.pem -out nginx/ssl/cert.pem -config $configFile -extensions v3_req
 
         # Clean up config file
         Remove-Item $configFile
 
         Write-Host ""
-        Write-Host "✓ Self-signed certificate generated!" -ForegroundColor Green
+        Write-Host "[OK] Self-signed certificate generated!" -ForegroundColor Green
         Write-Host ""
-        Write-Host "⚠️  Browsers will show security warnings. You'll need to accept them." -ForegroundColor Yellow
+        Write-Host "[WARNING] Browsers will show security warnings. You'll need to accept them." -ForegroundColor Yellow
         Write-Host ""
         Write-Host "Add this to your hosts file (C:\Windows\System32\drivers\etc\hosts):"
         if ($localip) {
@@ -114,15 +109,15 @@ subjectAltName = ${san}
         Write-Host "=== Manual Certificate Setup ===" -ForegroundColor Cyan
         Write-Host ""
         Write-Host "Please place your certificate files in:"
-        Write-Host "  nginx\ssl\cert.pem  - Your certificate (full chain)"
-        Write-Host "  nginx\ssl\key.pem   - Your private key"
+        Write-Host "  nginx/ssl/cert.pem  - Your certificate (full chain)"
+        Write-Host "  nginx/ssl/key.pem   - Your private key"
         Write-Host ""
         Read-Host "Press Enter when done"
 
-        if ((Test-Path "nginx\ssl\cert.pem") -and (Test-Path "nginx\ssl\key.pem")) {
-            Write-Host "✓ Certificate files found!" -ForegroundColor Green
+        if ((Test-Path "nginx/ssl/cert.pem") -and (Test-Path "nginx/ssl/key.pem")) {
+            Write-Host "[OK] Certificate files found!" -ForegroundColor Green
         } else {
-            Write-Host "⚠️  Certificate files not found. Please add them before starting services." -ForegroundColor Red
+            Write-Host "[WARNING] Certificate files not found. Please add them before starting services." -ForegroundColor Red
             exit 1
         }
     }
@@ -136,6 +131,7 @@ subjectAltName = ${san}
 Write-Host ""
 Write-Host "=== Next Steps ===" -ForegroundColor Cyan
 Write-Host "1. Copy .env.example to .env and configure your credentials"
-Write-Host "2. Start services: docker-compose up -d"
-Write-Host "3. Access your application via HTTPS"
+Write-Host "2. Build frontend: cd frontend && npm run build"
+Write-Host "3. Start services: docker-compose up -d"
+Write-Host "4. Access your application via HTTPS"
 Write-Host ""

@@ -36,14 +36,6 @@ services:
     networks:
       - jarvis-network
 
-  frontend:
-    build:
-      context: ./frontend
-      dockerfile: Dockerfile
-    container_name: jarvis-frontend-build
-    volumes:
-      - ./frontend/dist:/app/dist
-
   web:
     image: nginx:latest
     container_name: jarvis-web
@@ -54,8 +46,6 @@ services:
       - ./frontend/dist:/usr/share/nginx/html:ro
       - ./nginx/ssl:/etc/nginx/ssl:ro
     depends_on:
-      frontend:
-        condition: service_completed_successfully
       mcp-server:
         condition: service_started
     networks:
