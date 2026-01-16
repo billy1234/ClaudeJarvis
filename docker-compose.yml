@@ -46,16 +46,16 @@ services:
       - ./frontend/dist:/usr/share/nginx/html:ro
       - ./nginx/ssl:/etc/nginx/ssl:ro
     depends_on:
-      mcp-server:
+      backend:
         condition: service_started
     networks:
       - jarvis-network
 
-  mcp-server:
+  backend:
     build:
-      context: ./mcp-server
+      context: ./backend
       dockerfile: Dockerfile
-    container_name: jarvis-mcp-server
+    container_name: jarvis-backend
     environment:
       - DB_HOST=postgres
       - DB_PORT=5432
