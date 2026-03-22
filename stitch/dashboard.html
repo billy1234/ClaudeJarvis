@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Jarvis - Dashboard</title>
+<!-- Fonts -->
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&amp;family=Inter:wght@400;500;600&amp;family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind CSS -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "outline": "#737783",
+              "on-error": "#ffffff",
+              "error": "#ff4d4d",
+              "secondary": "#a0a0b0",
+              "surface": "#0a0a0c",
+              "on-primary": "#ffffff",
+              "inverse-on-surface": "#0a0a0c",
+              "surface-variant": "#1a1a20",
+              "surface-bright": "#15151a",
+              "surface-tint": "#BC13FE",
+              "surface-container-highest": "#2a2a35",
+              "surface-container": "#15151a",
+              "on-surface": "#f1f1f3",
+              "surface-container-lowest": "#050507",
+              "inverse-surface": "#eff1f3",
+              "surface-container-high": "#1c1c24",
+              "background": "#050507",
+              "primary": "#BC13FE",
+              "primary-container": "#2e0045",
+              "on-primary-container": "#f3d1ff",
+              "secondary-container": "#1c1c24",
+              "tertiary": "#00f0ff",
+              "on-tertiary": "#000000",
+              "on-surface-variant": "#c4c6d0",
+              "surface-container-low": "#0d0d12"
+            },
+            fontFamily: {
+              "headline": ["Manrope"],
+              "body": ["Inter"],
+              "label": ["Inter"]
+            },
+            borderRadius: {"DEFAULT": "0.125rem", "lg": "0.25rem", "xl": "0.5rem", "full": "1rem"},
+          },
+        },
+      }
+    </script>
+<style>
+      .material-symbols-outlined {
+        font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+      }
+      .signature-gradient {
+        background: linear-gradient(135deg, #BC13FE 0%, #7a00cc 100%);
+      }
+      .glass-panel {
+        background-color: rgba(10, 10, 12, 0.7);
+        backdrop-filter: blur(24px);
+        border: 1px solid rgba(188, 19, 254, 0.1);
+      }
+      body {
+        font-family: 'Inter', sans-serif;
+        background-color: #050507;
+        color: #f1f1f3;
+        overflow-x: hidden;
+      }
+      /* TV optimized scaling */
+      @media (min-width: 1920px) {
+        html { font-size: 18px; }
+      }
+    </style>
+</head>
+<body class="bg-background">
+<!-- TopAppBar (Full Width) -->
+<header class="bg-surface/80 backdrop-blur-xl flex justify-between items-center px-12 py-6 w-full sticky top-0 z-40 border-b border-white/5">
+<div class="flex items-center gap-12 flex-1">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 signature-gradient rounded-lg flex items-center justify-center">
+<span class="material-symbols-outlined text-white text-2xl" style="font-variation-settings: 'FILL' 1;">bolt</span>
+</div>
+<span class="text-3xl font-black text-white font-['Manrope'] tracking-tighter">JARVIS</span>
+</div>
+<div class="max-w-xl w-full relative">
+<span class="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-slate-500">search</span>
+<input class="w-full bg-surface-container border-none rounded-2xl py-3 pl-12 pr-6 text-sm focus:ring-2 focus:ring-primary/40 text-on-surface" placeholder="Voice command or search..." type="text"/>
+</div>
+</div>
+<div class="flex items-center gap-8">
+<div class="text-right hidden xl:block">
+<p class="text-xs font-bold text-primary uppercase tracking-[0.2em]">System Status</p>
+<p class="text-[10px] text-slate-400">All Nodes Operational</p>
+</div>
+<div class="flex items-center gap-6 text-slate-400 border-l border-white/10 pl-8">
+<span class="material-symbols-outlined cursor-pointer hover:text-primary transition-colors text-2xl" data-icon="notifications">notifications</span>
+<div class="flex items-center gap-3">
+<img alt="User Avatar" class="w-10 h-10 rounded-full border-2 border-primary/20" src="https://lh3.googleusercontent.com/aida-public/AB6AXuArnSxENuFyY8dTCo6-prWVXiauTpnGZbQDlXKZwUJuS5tjrsANG5kJ7yLNcdYSvzdZBsXOuihhfoGAdi3L6a3wCbhxhGb2wW5NWxbVadYLAEtHrOPbCICZDZ1y1hnHqzp5tnM1biNuZ4t8uDNupYuhdXKtu-XSK0LZI0bHWHUXpnJzp_l-rMU4FY5bwxLsjdYfyU_DgtTK5fVR-ptUNH1vxJX0TMnpLA2lrmK9er9pOp2wGviGyrtsG3elY_sIRiRT0b-rig"/>
+<span class="material-symbols-outlined cursor-pointer hover:text-primary transition-colors text-2xl" data-icon="settings">settings</span>
+</div>
+</div>
+</div>
+</header>
+<!-- Main Content Canvas - Expanded for TV/Monitor -->
+<main class="p-12 xl:p-16 max-w-[2400px] mx-auto min-h-screen">
+<!-- Dashboard Header -->
+<div class="mb-16 flex justify-between items-end">
+<div>
+<h2 class="text-display-lg font-['Manrope'] font-black text-white mb-3 tracking-tight text-5xl xl:text-6xl">System Overview</h2>
+<div class="flex items-center gap-4">
+<span class="px-3 py-1 bg-primary/10 text-primary text-[11px] font-bold rounded-full border border-primary/20 uppercase tracking-widest">Enhanced Mode Active</span>
+<p class="text-slate-400 font-['Inter'] font-medium text-lg">Tuesday, October 24 — Evening Focus Sequence</p>
+</div>
+</div>
+<div class="flex gap-4">
+<button class="bg-surface-container-high hover:bg-surface-container-highest transition-all px-6 py-3 rounded-2xl flex items-center gap-3 font-semibold text-sm">
+<span class="material-symbols-outlined text-sm">history</span> Log
+            </button>
+<button class="signature-gradient text-white px-8 py-3 rounded-2xl text-sm font-bold shadow-2xl shadow-primary/20 flex items-center gap-2 active:scale-95 transition-transform">
+<span class="material-symbols-outlined">mic</span>
+                Listening...
+            </button>
+</div>
+</div>
+<!-- 3-Column Bento Grid Layout for Large Screens -->
+<div class="grid grid-cols-12 gap-8 xl:gap-10">
+<!-- Shopping List Section (Column 1) -->
+<section class="col-span-12 md:col-span-6 lg:col-span-4 glass-panel rounded-[2rem] p-10 relative overflow-hidden group">
+<div class="flex justify-between items-center mb-10">
+<div class="flex items-center gap-4">
+<div class="w-12 h-12 rounded-2xl bg-primary/10 flex items-center justify-center text-primary border border-primary/20">
+<span class="material-symbols-outlined text-2xl" data-icon="shopping_basket">shopping_basket</span>
+</div>
+<h3 class="font-['Manrope'] font-bold text-2xl text-white">Shopping List</h3>
+</div>
+<button class="w-10 h-10 rounded-full bg-white/5 hover:bg-primary/20 text-primary transition-all flex items-center justify-center border border-white/5">
+<span class="material-symbols-outlined">add</span>
+</button>
+</div>
+<div class="space-y-6">
+<div class="flex items-center gap-5 p-6 bg-surface-container-low rounded-2xl border border-white/5 group/item hover:border-primary/30 transition-all">
+<div class="w-6 h-6 rounded border-2 border-primary/40 flex items-center justify-center bg-transparent cursor-pointer"></div>
+<div class="flex-1">
+<p class="text-base font-semibold text-white">Mechanical Keyboard Switches</p>
+<p class="text-xs text-slate-500 uppercase tracking-widest mt-1">Hardware • Amazon</p>
+</div>
+<span class="text-xs font-black text-primary bg-primary/10 px-3 py-1.5 rounded-lg border border-primary/20">x70</span>
+</div>
+<div class="flex items-center gap-5 p-6 bg-surface-container-low rounded-2xl border-l-4 border-l-tertiary border-y border-r border-white/5 group/item">
+<span class="material-symbols-outlined text-tertiary" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+<div class="flex-1">
+<p class="text-base font-semibold line-through text-slate-500">Oat Milk (Barista Edition)</p>
+<p class="text-xs text-slate-600 uppercase tracking-widest mt-1">Groceries • Local Mart</p>
+</div>
+<span class="text-xs font-bold text-slate-500 bg-white/5 px-3 py-1.5 rounded-lg">x2</span>
+</div>
+<div class="flex items-center gap-5 p-6 bg-surface-container-low rounded-2xl border border-white/5 group/item hover:border-primary/30 transition-all">
+<div class="w-6 h-6 rounded border-2 border-primary/40 flex items-center justify-center bg-transparent cursor-pointer"></div>
+<div class="flex-1">
+<p class="text-base font-semibold text-white">Leuchtturm1917 A5</p>
+<p class="text-xs text-slate-500 uppercase tracking-widest mt-1">Office • Stationery Shop</p>
+</div>
+<span class="text-xs font-black text-primary bg-primary/10 px-3 py-1.5 rounded-lg border border-primary/20">x1</span>
+</div>
+</div>
+<div class="mt-10">
+<button class="w-full py-4 text-sm font-bold text-primary/80 border border-dashed border-primary/30 rounded-2xl hover:bg-primary/5 hover:text-primary transition-all">
+                    View full inventory (12 items)
+                </button>
+</div>
+</section>
+<!-- Todos Section (Column 2) -->
+<section class="col-span-12 md:col-span-6 lg:col-span-4 glass-panel rounded-[2rem] p-10 relative overflow-hidden">
+<div class="flex justify-between items-center mb-10">
+<div class="flex items-center gap-4">
+<div class="w-12 h-12 rounded-2xl bg-primary/10 flex items-center justify-center text-primary border border-primary/20">
+<span class="material-symbols-outlined text-2xl" data-icon="task_alt">task_alt</span>
+</div>
+<h3 class="font-['Manrope'] font-bold text-2xl text-white">Active Tasks</h3>
+</div>
+<button class="w-10 h-10 rounded-full bg-white/5 hover:bg-primary/20 text-primary transition-all flex items-center justify-center border border-white/5">
+<span class="material-symbols-outlined">add</span>
+</button>
+</div>
+<div class="space-y-6">
+<div class="group cursor-pointer">
+<div class="flex items-start gap-5 p-6 bg-surface-container-low rounded-2xl border-l-4 border-error border-y border-r border-white/5 hover:bg-surface-container transition-all">
+<div class="flex-1">
+<div class="flex items-center gap-3 mb-2">
+<span class="text-[10px] font-black text-error uppercase tracking-[0.2em]">Priority Alpha</span>
+<span class="text-slate-700">•</span>
+<span class="text-[10px] font-bold text-slate-500 uppercase tracking-widest">Global Ops</span>
+</div>
+<p class="text-lg font-bold mb-3 text-white leading-tight">Refine Brutalist Wireframe Mockups</p>
+<div class="flex items-center gap-2 text-slate-500">
+<span class="material-symbols-outlined text-[16px]">schedule</span>
+<span class="text-xs font-semibold">T-minus 3 hours</span>
+</div>
+</div>
+</div>
+</div>
+<div class="group cursor-pointer">
+<div class="flex items-start gap-5 p-6 bg-surface-container-low rounded-2xl border-l-4 border-primary border-y border-r border-white/5 hover:bg-surface-container transition-all">
+<div class="flex-1">
+<div class="flex items-center gap-3 mb-2">
+<span class="text-[10px] font-black text-primary uppercase tracking-[0.2em]">Priority Beta</span>
+<span class="text-slate-700">•</span>
+<span class="text-[10px] font-bold text-slate-500 uppercase tracking-widest">Internal</span>
+</div>
+<p class="text-lg font-bold mb-3 text-white leading-tight">Update System Documentation</p>
+<div class="flex items-center gap-2 text-slate-500">
+<span class="material-symbols-outlined text-[16px]">calendar_month</span>
+<span class="text-xs font-semibold">Scheduled for Oct 26</span>
+</div>
+</div>
+</div>
+</div>
+<div class="group cursor-pointer">
+<div class="flex items-start gap-5 p-6 bg-surface-container-low rounded-2xl border-l-4 border-white/20 border-y border-r border-white/5 hover:bg-surface-container transition-all">
+<div class="flex-1">
+<div class="flex items-center gap-3 mb-2">
+<span class="text-[10px] font-black text-slate-500 uppercase tracking-[0.2em]">Routine Task</span>
+</div>
+<p class="text-lg font-bold mb-3 text-slate-400 leading-tight">Archive Q3 Project Data</p>
+<div class="flex items-center gap-2 text-slate-600">
+<span class="material-symbols-outlined text-[16px]">folder_zip</span>
+<span class="text-xs font-semibold">Pending</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Reminders Section (Column 3) -->
+<section class="col-span-12 lg:col-span-4 signature-gradient text-white rounded-[2rem] p-10 flex flex-col relative overflow-hidden shadow-2xl shadow-primary/20">
+<!-- Abstract Pattern Overlays -->
+<div class="absolute top-0 right-0 w-64 h-64 bg-white/10 blur-[100px] -mr-32 -mt-32"></div>
+<div class="absolute bottom-0 left-0 w-48 h-48 bg-tertiary/20 blur-[80px] -ml-24 -mb-24"></div>
+<div class="relative z-10 h-full flex flex-col">
+<div class="flex justify-between items-center mb-12">
+<div class="flex items-center gap-4">
+<div class="w-12 h-12 bg-white/20 rounded-2xl flex items-center justify-center backdrop-blur-md border border-white/20">
+<span class="material-symbols-outlined" data-icon="notifications_active" style="font-variation-settings: 'FILL' 1;">notifications_active</span>
+</div>
+<h3 class="font-['Manrope'] font-bold text-2xl">Alerts &amp; Reminders</h3>
+</div>
+<button class="bg-white/10 p-3 rounded-full hover:bg-white/20 transition-all border border-white/20">
+<span class="material-symbols-outlined text-sm">add</span>
+</button>
+</div>
+<div class="space-y-10 flex-1">
+<div class="relative pl-8 before:content-[''] before:absolute before:left-0 before:top-1 before:bottom-1 before:w-[3px] before:bg-tertiary before:rounded-full">
+<p class="text-[11px] font-black uppercase tracking-[0.2em] text-white/60 mb-2">Imminent</p>
+<p class="text-xl font-bold mb-2">Deep Work Protocol</p>
+<p class="text-sm font-black text-tertiary tracking-wider">14:00 - 16:30</p>
+</div>
+<div class="relative pl-8 before:content-[''] before:absolute before:left-0 before:top-1 before:bottom-1 before:w-[3px] before:bg-white/20 before:rounded-full">
+<p class="text-[11px] font-black uppercase tracking-[0.2em] text-white/60 mb-2">Sequence 04</p>
+<p class="text-xl font-bold mb-2">Global Team Sync</p>
+<p class="text-sm font-black text-white/80 tracking-wider">17:00 HRS</p>
+</div>
+<div class="relative pl-8 before:content-[''] before:absolute before:left-0 before:top-1 before:bottom-1 before:w-[3px] before:bg-white/20 before:rounded-full">
+<p class="text-[11px] font-black uppercase tracking-[0.2em] text-white/60 mb-2">Physical Maintenance</p>
+<p class="text-xl font-bold mb-2">Gym Session</p>
+<p class="text-sm font-black text-white/80 tracking-wider">19:30 HRS</p>
+</div>
+</div>
+<div class="mt-12 p-8 bg-black/20 rounded-3xl border border-white/10 backdrop-blur-md">
+<div class="flex justify-between items-end mb-4">
+<p class="text-sm font-black uppercase tracking-widest text-white/90">Efficiency Metric</p>
+<p class="text-2xl font-black text-tertiary">84%</p>
+</div>
+<div class="h-3 w-full bg-white/10 rounded-full overflow-hidden">
+<div class="h-full bg-tertiary w-[84%] shadow-[0_0_15px_rgba(0,240,255,0.5)]"></div>
+</div>
+<p class="text-xs mt-4 text-white/60 font-medium italic">"Performance exceeds previous cycle by 14%."</p>
+</div>
+</div>
+</section>
+<!-- Insights Row (Spans Bottom) -->
+<div class="col-span-12 lg:col-span-8 glass-panel rounded-[2rem] p-10 flex items-center justify-between border-white/5">
+<div class="flex items-center gap-10">
+<img class="w-72 h-40 object-cover rounded-[1.5rem] grayscale hover:grayscale-0 transition-all duration-1000 border border-white/10 shadow-2xl" data-alt="Cyberpunk minimalist interior" src="https://lh3.googleusercontent.com/aida-public/AB6AXuC_5cBbLgViboS5WgShvcvEOf2OtE7ebImBtzrcikAeuTUzhM_4OmfQnvt0MtQceqxikHw9Y6dsfUvTbeE3PjWM9IsgPerjCTsDmcdaf9pcSd-jn9y0P0BjaBOB_e3GmICR7qHeqGkEYDq0mFAkSJNIdLLfpOEJUTUasEEpwKh1opAu4EDND5JDnqYOj6J0y8heybmPvVSkol_BK38o1U5dKa5P0lSFQn5Fp8LQSXwMCftvwjL1OSIhjmxVP8sATwsm-xVENw"/>
+<div>
+<span class="text-[11px] font-black text-primary uppercase tracking-[0.3em] mb-4 block">Knowledge Base Update</span>
+<h4 class="font-['Manrope'] font-extrabold text-3xl text-white mb-4 leading-tight">Environmental Fluidity in Deep Work</h4>
+<p class="text-lg text-slate-400 max-w-lg leading-relaxed italic">"The digital architecture of your tools should vanish during peak performance."</p>
+</div>
+</div>
+<button class="bg-primary/10 border border-primary/20 text-primary px-10 py-5 rounded-2xl text-base font-black hover:bg-primary hover:text-white transition-all duration-300">READ BRIEF</button>
+</div>
+<div class="col-span-12 lg:col-span-4 bg-surface-container-high rounded-[2rem] p-10 flex flex-col justify-center relative overflow-hidden group border border-white/5">
+<span class="material-symbols-outlined text-primary absolute -right-8 -bottom-8 text-[12rem] opacity-5 group-hover:rotate-12 group-hover:scale-110 transition-transform duration-1000" style="font-variation-settings: 'FILL' 1;">analytics</span>
+<p class="text-[11px] font-black uppercase tracking-[0.3em] text-primary mb-4">Productivity Sync</p>
+<h4 class="font-['Manrope'] font-black text-3xl text-white leading-tight mb-8">Weekly Objective: 86% Complete.</h4>
+<a class="text-base font-black text-primary flex items-center gap-3 group" href="#">
+                ENTER ANALYTICS ENGINE
+                <span class="material-symbols-outlined text-base group-hover:translate-x-2 transition-transform">arrow_forward</span>
+</a>
+</div>
+</div>
+</main>
+<!-- Floating Interaction Point -->
+<button class="fixed bottom-12 right-12 signature-gradient w-24 h-24 rounded-full shadow-[0_20px_60px_-15px_rgba(188,19,254,0.6)] flex items-center justify-center text-white active:scale-90 hover:scale-105 transition-all z-50 border-4 border-white/10">
+<span class="material-symbols-outlined text-5xl">settings_input_antenna</span>
+</button>
+</body></html>

@@ -21,8 +21,10 @@ type Server struct {
 }
 
 func main() {
-	if err := godotenv.Load(); err != nil {
-		log.Println("No .env file found, using system environment variables")
+	if _, err := godotenv.Read(); err != nil {
+		log.Printf(".env read error: %v", err)
+	} else {
+		godotenv.Load()
 	}
 
 	dbHost := os.Getenv("DB_HOST")
