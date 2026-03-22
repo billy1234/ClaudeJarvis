@@ -1,0 +1,127 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$defs": {
+    "Reminder": {
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "user_id": {
+          "type": "string"
+        },
+        "text": {
+          "type": "string"
+        },
+        "remind_at": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "dismissed": {
+          "type": "boolean"
+        },
+        "created_at": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "dismissed_at": {
+          "type": "string",
+          "format": "date-time"
+        }
+      },
+      "additionalProperties": false,
+      "type": "object",
+      "required": [
+        "id",
+        "text",
+        "remind_at",
+        "dismissed",
+        "created_at"
+      ]
+    },
+    "ShoppingItem": {
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "user_id": {
+          "type": "string"
+        },
+        "item": {
+          "type": "string"
+        },
+        "quantity": {
+          "type": "string"
+        },
+        "created_at": {
+          "type": "string",
+          "format": "date-time"
+        }
+      },
+      "additionalProperties": false,
+      "type": "object",
+      "required": [
+        "id",
+        "item",
+        "created_at"
+      ]
+    },
+    "Todo": {
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "user_id": {
+          "type": "string"
+        },
+        "text": {
+          "type": "string"
+        },
+        "completed": {
+          "type": "boolean"
+        },
+        "priority": {
+          "type": "string"
+        },
+        "due_date": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "created_at": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "completed_at": {
+          "type": "string",
+          "format": "date-time"
+        }
+      },
+      "additionalProperties": false,
+      "type": "object",
+      "required": [
+        "id",
+        "text",
+        "completed",
+        "priority",
+        "created_at"
+      ]
+    }
+  },
+  "properties": {
+    "Todo": {
+      "$ref": "#/$defs/Todo"
+    },
+    "Reminder": {
+      "$ref": "#/$defs/Reminder"
+    },
+    "ShoppingItem": {
+      "$ref": "#/$defs/ShoppingItem"
+    }
+  },
+  "additionalProperties": false,
+  "type": "object",
+  "required": [
+    "Todo",
+    "Reminder",
+    "ShoppingItem"
+  ]
+}
