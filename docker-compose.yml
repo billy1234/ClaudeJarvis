@@ -11,7 +11,7 @@ services:
     volumes:
       - postgres_data:/var/lib/postgresql/data
     healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U ${DB_USER}"]
+      test: ["CMD-SHELL", "pg_isready -U ${DB_USER} -d ${DB_NAME}"]
       interval: 10s
       timeout: 5s
       retries: 5
@@ -33,6 +33,28 @@ services:
     depends_on:
       postgres:
         condition: service_healthy
+    networks:
+      - jarvis-network
+
+  flyway-seed:
+    image: flyway/flyway:10
+    container_name: jarvis-flyway-seed
+    command: migrate
+    volumes:
+      - ./flyway/sql:/flyway/sql
+      - ./flyway/test-data:/flyway/test-data
+    environment:
+      - FLYWAY_URL=jdbc:postgresql://postgres:5432/${DB_NAME}
+      - FLYWAY_USER=${DB_USER}
+      - FLYWAY_PASSWORD=${DB_PASSWORD}
+      - FLYWAY_SCHEMAS=public
+      - FLYWAY_LOCATIONS=filesystem:/flyway/sql,filesystem:/flyway/test-data
+      - FLYWAY_TABLE=flyway_seed_history
+    depends_on:
+      postgres:
+        condition: service_healthy
+    profiles:
+      - seed
     networks:
       - jarvis-network
 
